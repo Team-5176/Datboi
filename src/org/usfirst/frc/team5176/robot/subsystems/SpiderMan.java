@@ -12,7 +12,11 @@ public class SpiderMan extends Subsystem {
 	protected void initDefaultCommand() {
 		
 	}
-
+	
+	public void setSpeed(double speed) {
+		spiderMotor.set(speed);
+	}
+	
 	public void climbUp() {
 		spiderMotor.set(0.5);
 	}

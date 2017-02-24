@@ -13,7 +13,7 @@ public class ClimbRope extends Command {
 	
 	@Override
 	protected void initialize() {
-		setTimeout(1.0);
+		setTimeout(0.1);
 	}
 	
 	@Override
@@ -24,15 +24,5 @@ public class ClimbRope extends Command {
 	@Override
 	protected boolean isFinished() {
 		return isTimedOut();
-	}
-	
-	@Override
-	protected void end() {
-		spiderman.stop();
-	}
-	
-	@Override
-	protected void interrupted() {
-		end();
 	}
 }

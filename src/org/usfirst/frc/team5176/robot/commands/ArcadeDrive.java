@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ArcadeDrive extends Command {
-	private double joyX;
-	private double joyY;
-	private double twist;
+	private double joyX, joyY, twist, lastX, lastY, lastTwist;
 	
 	private Joystick joystick;
 	
@@ -19,13 +17,16 @@ public class ArcadeDrive extends Command {
 	@Override
 	protected void initialize() {
 		joystick = Robot.oi.getPilotJoystick();
+		lastX = 0.0;
+		lastY = 0.0;
+		lastTwist = 0.0;
 	}
 	
 	@Override
 	protected void execute() {
-		joyX = joystick.getX();
-		joyY = joystick.getY();
-		twist = joystick.getTwist() / 2.0;
+		joyX = joystick.getRawAxis(0);
+		joyY = joystick.getRawAxis(1);
+		twist = joystick.getRawAxis(4) / 2.0;
 		
 		if(Math.abs(joyX) < 0.20) {
 	    	joyX = 0.0;
@@ -35,11 +36,15 @@ public class ArcadeDrive extends Command {
 	    	joyY = 0.0;
     	}
     	
-    	if(Math.abs(twist) < 0.30) {
+    	if(Math.abs(twist) < 0.20) {
 	    	twist = 0.0;
     	}
     	
-    	Robot.driveTrain.dankMemes(joyX, joyY, twist);
+    	lastX = lastX + Robot.ACCELERATION * (joyX * 0.75 - lastX);
+    	lastY = lastY + Robot.ACCELERATION * (joyY * 0.75 - lastY);
+    	lastTwist = lastTwist + Robot.ACCELERATION * (twist * 0.75 - lastTwist);
+    	
+    	Robot.driveTrain.dankMemes(lastX, lastY, lastTwist);
 	}
 	
 	@Override

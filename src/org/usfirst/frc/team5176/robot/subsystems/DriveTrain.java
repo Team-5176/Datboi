@@ -14,7 +14,21 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new ArcadeDrive());
 	}
 	
-	public void dankMemes(double x, double y, double rotation) {
+	public void dankMemes(double x, double y, double rotation) { 
 		robotDrive41.mecanumDrive_Cartesian(x, y, rotation, 0.0);
     }
+	
+	public void driveForward(double speed) {
+		RobotMap.driveTrainBackLeftMotor.set(speed);
+		RobotMap.driveTrainFrontLeftMotor.set(speed);
+		RobotMap.driveTrainBackRightMotor.set(speed);
+		RobotMap.driveTrainFrontRightMotor.set(speed);
+	}
+	
+	public void kidRanIntoTheStreet() {
+		RobotMap.driveTrainBackLeftMotor.set(0);
+		RobotMap.driveTrainFrontLeftMotor.set(0);
+		RobotMap.driveTrainBackRightMotor.set(0);
+		RobotMap.driveTrainFrontRightMotor.set(0);
+	}
 }

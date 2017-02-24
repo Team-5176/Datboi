@@ -45,20 +45,30 @@ public class OI {
 	public JoystickButton shootButton;
 	public JoystickButton climbButton;
 	public JoystickButton descendButton;
+	public JoystickButton openGearCatcherButton;
+	public JoystickButton closeGearCatcherButton;
 	
 	public OI() {
         pilotJoystick = new Joystick(0);
         coJoystick = new Joystick(1);
         
-        shootButton = new JoystickButton(coJoystick, 1);
+        shootButton = new JoystickButton(pilotJoystick, 6);//co-1
         shootButton.whenPressed(new ShootDeezBallz());
         shootButton.whenReleased(new KeepDeezBallz());
         
-        climbButton = new JoystickButton(coJoystick, 6);
+        climbButton = new JoystickButton(coJoystick, 1);
         climbButton.whenPressed(new ClimbRope());
+        climbButton.whenReleased(new StopClimbing());
         
-        descendButton = new JoystickButton(coJoystick, 7);
+        descendButton = new JoystickButton(coJoystick, 2);
         descendButton.whenPressed(new DescendRope());
+        descendButton.whenReleased(new StopClimbing());
+        
+        openGearCatcherButton = new JoystickButton(coJoystick, 3);
+        openGearCatcherButton.whenPressed(new OpenGearCatcher());
+        
+        closeGearCatcherButton = new JoystickButton(coJoystick, 4);
+        closeGearCatcherButton.whenPressed(new CloseGearCatcher());
         
         SmartDashboard.putData("Arcade Drive", new ArcadeDrive());
     }
